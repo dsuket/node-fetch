@@ -168,6 +168,7 @@ function Fetch(url, opts) {
 				, headers: headers
 				, size: options.size
 				, timeout: options.timeout
+				, res: res
 			});
 
 			resolve(output);
