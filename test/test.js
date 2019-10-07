@@ -36,6 +36,7 @@ describe('node-fetch', function() {
 	});
 
 	after(function(done) {
+		this.timeout(5000);
 		local.stop(done);
 	});
 
@@ -906,6 +907,16 @@ describe('node-fetch', function() {
 			expect(res.status).to.equal(200);
 			return res.text().then(function(result) {
 				expect(result).to.equal('<meta http-equiv="Content-Type" content="text/html; charset=gb2312"><div>中文</div>');
+			});
+		});
+	});
+
+	it('should support encoding decode, html4 detect reversed http-equiv', function() {
+		url = base + '/encoding/gb2312-reversed';
+		return fetch(url).then(function(res) {
+			expect(res.status).to.equal(200);
+			return res.text().then(function(result) {
+				expect(result).to.equal('<meta content="text/html; charset=gb2312" http-equiv="Content-Type"><div>中文</div>');
 			});
 		});
 	});
